@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="base::layout(~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+
+<section>
+    <div class="row mt-5">
+        <div class="col-md-6">
+            <img th:src="@{images/login_hero.svg}" alt="Image" class="img-fluid">
+        </div>
+        <div class="col-md-6 contents">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="mb-4">
+                        <h3>Login</h3>
+                        <p class="mb-4">Lorem ipsum dolor sit amet elit. Sapiente sit aut eos consectetur adipisicing.</p>
+                    </div>
+                    <form th:action="@{/login}" method="post">
+                        <div class="form-group first mb-2">
+                            <label for="username">Username</label>
+                            <input type="text" name="username" id="username" class="form-control" placeholder="Enter Your Username" required>
+                        </div>
+                        <div class="form-group last mb-4">
+                            <label for="password">Password</label>
+                            <input type="password" name="password" id="password" class="form-control" placeholder="Enter Your Password" required>
+                        </div>
+
+                        <input type="submit" value="Log In" class="btn btn-block btn-primary">
+
+                    </form>
+                    <div class="d-flex mt-3 align-items-center">
+                        <span class="ml-auto">New Here then, <a th:href="@{/register}" >Register</a></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>

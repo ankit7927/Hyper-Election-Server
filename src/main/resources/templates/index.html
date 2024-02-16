@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Modern-Election</title>
+</head>
+
+<body>
+    <section class="hero d-flex align-items-center mt-3 mb-4">
+        <div class="row">
+            <div class="col-lg-6 d-flex flex-column justify-content-center">
+                <h1 data-aos="fade-up" class="aos-init aos-animate">The Future of fair and secure election is here.</h1>
+                <p data-aos="fade-up" data-aos-delay="400" class="mt-2">
+                    Bringing transparency and security to election
+                    with blockchain technology
+                </p>
+                <div class="mt-4">
+                    <a class="btn btn-primary" th:href="@{/login}">Get Started..</a>
+                </div>
+            </div>
+            <img class="col-lg-6 mt-2 img-fluid" th:src="@{images/hero-img.png}" alt="hero image" />
+        </div>
+    </section>
+
+</body>
+
+</html>

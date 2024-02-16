@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Election</title>
+</head>
+
+<body>
+    <section>
+        <div class="mt-3">
+
+            <div class="row g-3 mb-3">
+                <h1 class="col-md-6">Election Detail</h1>
+                <div class="col-md-6 text-end">
+                    <button class="btn btn-success" th:if="${election.electionPhase} == 'current'" id="vote-btn"
+                        data-bs-toggle="modal" data-bs-target="#voteFormModal">
+                        Give Vote
+                    </button>
+                    <button class="btn btn-primary" th:if="${election.electionPhase} == 'upcoming'" id="cand-btn"
+                        data-bs-toggle="modal" data-bs-target="#candidateFormModal">
+                        Apply for Candidate
+                    </button>
+                </div>
+            </div>
+
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label for="electionName" class="form-label">Election Name</label>
+                    <input type="text" name="electionName" class="form-control" id="electionName"
+                        th:value="${election.electionName}" disabled>
+                </div>
+                <div class="col-md-6">
+                    <label for="phase" class="form-label">Phase</label>
+                    <input type="text" name="phase" class="form-control" id="phase" th:value="${election.electionPhase}"
+                        disabled>
+                </div>
+                <div class="col-12">
+                    <label for="electionDic" class="form-label">Election Description</label>
+                    <textarea class="form-control" name="electionDic" id="electionDic" rows="3"
+                        th:text="${election.electionDic}" disabled></textarea>
+                </div>
+            </div>
+
+            <div class="modal fade" id="candidateFormModal" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Apply for candidate</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form th:object="${candidate}" method="post" th:action="@{apply-candidate}">
+                            <div class="modal-body">
+
+                                <div class="mb-3">
+                                    <label for="candidateName" class="form-label">Candidate Name</label>
+                                    <input type="text" class="form-control" name="candidateName" id="candidateName" />
+                                </div>
+                                <div class="mb-3">
+                                    <label for="userID" class="form-label">UserID</label>
+                                    <input type="text" readonly name="userID" class="form-control" id="userID"
+                                        th:value="${userID}" />
+                                </div>
+                                <div class="mb-3">
+                                    <label for="electionID" class="form-label">Election ID</label>
+                                    <input type="text" name="electionID" class="form-control" id="electionID"
+                                        th:value="${election.electionID}" readonly />
+                                </div>
+                                <div class="mb-3">
+                                    <label for="symbol" class="form-label">Symbol</label>
+                                    <input type="file" name="symbol" class="form-control" id="symbol" />
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="modal fade" id="voteFormModal" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Give vote</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form th:action="@{give-vote}" th:object="${voteModel}" method="post">
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    <label for="eleID" class="form-label">Election ID</label>
+                                    <input required readonly type="text" class="form-control" name="eleID" id="eleID"
+                                        th:value="${election.electionID}" />
+                                </div>
+                                <div class="mb-3">
+                                    <label for="password" class="form-label">User Password</label>
+                                    <input required type="password" class="form-control" name="password"
+                                        id="password" />
+                                </div>
+                                <div class="mb-3">
+                                    <label for="candidate" class="form-label">Select Candidate</label>
+                                    <select class="form-control" name="candID" id="candidate">
+                                        <option th:each="candidate : ${election.candidates}"
+                                        th:value="${candidate.userID}" th:text="${candidate.candidateName}"></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="candidateList mt-4">
+                <h2>Candidates</h2>
+                <table class="table table-hover table-borderless">
+                    <thead>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Candidate ID</th>
+                            <th scope="col">Votes</th>
+
+                        </tr>
+                    </thead>
+                    <tbody th:each="candidate : ${election.candidates}">
+                        <tr>
+                            <td th:text="${candidate.candidateName}">name</td>
+                            <td th:text="${candidate.userID}">userID</td>
+                            <td th:text="${candidate.vote}">0</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

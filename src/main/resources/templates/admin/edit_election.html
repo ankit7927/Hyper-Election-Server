@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="admin/base::layout(~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<section>
+    <div class="mt-3">
+
+        <form class="row g-3" th:action="@{update}" method="post">
+            <div class="row g-3 mb-3">
+                <h2 class="col-md-6">Edit Election</h2>
+                <div class="col-md-6 text-end">
+                    <button type="submit" class="btn btn-success" th:if="${election.electionPhase} == 'upcoming'">
+                        update
+                    </button>
+                    <!-- enable this button only in current -->
+                    <a class="btn btn-warning" th:href="@{'delete/ele'(eleID=${election.electionID},dispose=true)}"
+                        th:if="${election.electionPhase} == 'current'">
+                        Dispose
+                    </a>
+                    <!-- enable this button only in current and upcoming-->
+                    <a class="btn btn-danger" th:href="@{'delete/ele'(eleID=${election.electionID},dispose=false)}">
+                        Delete
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <label for="electionID" class="form-label">Election Name</label>
+                <input type="text" name="electionID" class="form-control" id="electionID"
+                       th:value="${election.electionID}" readonly>
+            </div>
+            <div class="col-md-6">
+                <label for="electionName" class="form-label">Election Name</label>
+                <input type="text" name="electionName" class="form-control" id="electionName"
+                       th:value="${election.electionName}">
+            </div>
+            <div class="col-md-3">
+                <label for="phase" class="form-label">Phase</label>
+                <select class="form-control" name="electionPhase" id="phase">
+                    <option selected>Choose phase</option>
+                    <option value="current">Current</option>
+                    <option value="upcoming">Upcoming</option>
+                    <option value="past">Past</option>
+                </select>
+            </div>
+            <div class="col-12">
+                <label for="electionDic" class="form-label">Election Description</label>
+                <textarea class="form-control" name="electionDic" id="electionDic" rows="3"
+                          th:text="${election.electionDic}"></textarea>
+            </div>
+
+        </form>
+        <div class="candidateList mt-5">
+            <h2>Candidates</h2>
+            <table class="table table-hover table-borderless">
+                <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">UserID</th>
+                    <th scope="col">Votes</th>
+                    <th scope="col" th:if="${election.electionPhase} == 'upcoming'">Actions</th>
+                </tr>
+                </thead>
+                <tbody th:each="candidate : ${election.candidates}">
+                <tr>
+                    <td th:text="${candidate.candidateName}">name</td>
+                    <td th:text="${candidate.userID}">userID</td>
+                    <td th:text="${candidate.vote}">0</td>
+                    <td th:if="${election.electionPhase} == 'upcoming'">
+                        <a th:href="@{'delete/cand'(candID=${candidate.userID},eleID=${election.electionID})}"
+                           class="btn btn-danger btn-sm">
+                            delete
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+</body>
+</html>

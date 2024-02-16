@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="admin/base::layout(~{::section})">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <section>
+        <div class="mt-2">
+            <h2>Elections</h2>
+            <table class="table table-hover table-borderless">
+                <thead>
+                    <tr>
+                        <th scope="col">Election Name</th>
+                        <th scope="col">Election ID</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody th:each="election : ${elections}">
+                    <tr>
+                        <td th:text="${election.electionName}">name</td>
+                        <td th:text="${election.electionID}">userID</td>
+                        <td>
+                            <a th:href="${election.electionID}"
+                                class="btn btn-secondary btn-sm">
+                                Information
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</body>
+
+</html>

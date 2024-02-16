@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="base::layout(~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <title>profile</title>
+</head>
+<body>
+<section>
+    <div class="mt-3">
+        <div class="row">
+            <div class="col-lg-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex flex-column align-items-center text-center">
+                            <img th:src="@{/images/avatar.png}" alt="user dp"
+                                 class="card-img-top" src="">
+                            <div class="mt-3">
+                                <h4 th:text="${user.name}">name</h4>
+                                <p class="text-secondary mb-1" th:text="${user.username}">username</p>
+                                <a th:href="@{/logout}" class="btn btn-outline-danger">Logout</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Basic Details</h5>
+                        <form class="row g-3" th:action="@{update-basic}" th:object="${user}" method="post">
+                            <div class="col-md-6">
+                                <label for="name" class="form-label">Name</label>
+                                <input type="text" class="form-control" id="name" placeholder="name"
+                                       name="name" th:value="${user.name}">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" placeholder="Email"
+                                       name="email" th:value="${user.email}">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="gender" class="form-label">Gender</label>
+                                <select id="gender" class="form-select" name="gender" th:value="${user.gender}">
+                                    <option selected>Choose...</option>
+                                    <option>male</option>
+                                    <option>female</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="profile" class="form-label">Profile Image</label>
+                                <input type="file" class="form-control" id="profile"/>
+                            </div>
+                            <div class="col-auto">
+                                <button type="submit" class="btn btn-primary">Update</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Additional Details</h5>
+                            <form class="row g-3" th:action="@{update-additional}" th:object="${additional}"
+                                  method="post">
+                                <div class="col-md-6">
+                                    <label for="adharNo" class="form-label">Adhar Number</label>
+                                    <input type="number" class="form-control" name="adharNo" id="adharNo"
+                                           th:value="${user.additional.adharNo}">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="panNo" class="form-label">Pan Number</label>
+                                    <input type="number" class="form-control" id="panNo" name="panNo"
+                                           th:value="${user.additional.panNo}">
+                                </div>
+                                <div class="col-12">
+                                    <label for="address1" class="form-label">Address</label>
+                                    <input type="text" class="form-control" id="address1" name="address1"
+                                           th:value="${user.additional.address1}">
+                                </div>
+                                <div class="col-12">
+                                    <label for="address2" class="form-label">Address 2</label>
+                                    <input type="text" class="form-control" id="address2" name="address2"
+                                           th:value="${user.additional.address2}">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="city" class="form-label">City</label>
+                                    <input type="text" class="form-control" id="city" name="city"
+                                           th:value="${user.additional.city}">
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="state" class="form-label">State</label>
+                                    <select id="state" class="form-select" name="state"
+                                            th:value="${user.additional.state}">
+                                        <option selected>Choose...</option>
+                                        <option>Maharashtra</option>
+                                        <option>Uttar Pradesh</option>
+                                        <option>Bihar</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-2">
+                                    <label for="zip" class="form-label">Zip</label>
+                                    <input type="text" class="form-control" id="zip" name="zip"
+                                           th:value="${user.additional.zip}">
+                                </div>
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-primary">save</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

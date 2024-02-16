@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Election</title>
+</head>
+
+<body>
+    <section>
+
+        <div class="row g-3 mt-3">
+            <h3 class="col-md-6">Ongoing Election</h3>
+            <div class="col-md-6 text-end">
+                <a th:href="@{election/all-ele}" class="btn btn-outline-primary">All Elections</a>
+                <a th:href="@{election/past-ele}" class="btn btn-outline-primary">Past Elections</a>
+            </div>
+        </div>
+        <!--    ongoing elections-->
+        <div class="row g-4 mt-3">
+            <div th:each="election : ${elections}">
+                <div th:if="${ election.electionPhase == 'current'}">
+                    <div class="card" th:classappend="col-sm-6">
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${election.electionName}"></h5>
+                            <p class="card-text" th:text="${election.electionDic}"></p>
+                            <a th:href="${'election/'+election.electionID}" class="btn btn-outline-primary btn-sm">
+                                Check Status
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!--    end ongoing election-->
+        <!--    upcoming elections-->
+        <h3 class="mt-4">Upcoming Elections</h3>
+        <div class="row g-4 mt-2">
+            <div th:each="election : ${elections}" >
+                <div th:if="${ election.electionPhase == 'upcoming'}">
+                    <div class="card" th:classappend="col-sm-6">
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${election.electionName}"></h5>
+                            <p class="card-text" th:text="${election.electionDic}"></p>
+                            <a th:href="${'election/'+election.electionID}" class="btn btn-outline-primary btn-sm">
+                                Check Status
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--    end upcoming election-->
+    </section>
+
+</body>
+
+</html>

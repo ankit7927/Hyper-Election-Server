@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<section>
+
+  <h2>Register Here</h2>
+  <form method="post" th:action="@{/register}">
+    <input required type="text" name="name" placeholder="Name" th:value="${user.name}"/><br/>
+    <input required type="email" name="email" placeholder="Email" th:value="${user.email}"/><br/>
+    <input required type="text" name="username" placeholder="Username" th:value="${user.username}"/><br/>
+    <input required type="text" name="password" placeholder="Password" th:value="${user.password}"/><br/>
+    <input required type="submit" value="Submit"/><br/>
+  </form>
+  <div class="message">
+    <span><b th:text="${message}"></b></span>
+  </div>
+
+  <br/>
+  <div>or login <a th:href="@{login}">Here</a></div>
+</section>
+
+
+
+
+<h1 th:text="${user.username}"></h1>
+<a href="/logout">logout</a>
+<hr/>
+
+<h3>Your Details</h3>
+<form th:action="@{update}" method="post">
+  name:<input name="name" type="text" th:value="${user.name}"/><br/>
+  email:<input name="email" type="email" th:value="${user.email}"/><br/>
+  <input type="submit" value="update"/>
+  <div>
+    <span th:text="${message}"></span>
+  </div>
+</form>
+
+
+</body>
+</html>

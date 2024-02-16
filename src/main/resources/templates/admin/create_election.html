@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="admin/base::layout(~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<section>
+    <div class="mt-3">
+        <div th:if="${session.message}">
+            <p th:text="${session.message.content}"></p>
+        </div>
+        <form class="row g-3" th:action="@{save}" method="post">
+            <div class="row g-3 mb-3">
+                <h3 class="col-md-6">Create Election</h3>
+                <div class="col-md-6 text-end">
+                    <button type="submit" class="btn btn-success">
+                        create
+                    </button>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <label for="electionName" class="form-label">Election Name</label>
+                <input type="text" name="electionName" class="form-control" id="electionName" required>
+            </div>
+            <div class="col-md-6">
+                <label for="phase" class="form-label">Phase</label>
+                <select class="form-control" name="electionPhase" id="phase" required>
+                    <option selected>Choose phase</option>
+                    <option value="current">Current</option>
+                    <option value="upcoming">Upcoming</option>
+                    <option value="past">Past</option>
+                </select>
+            </div>
+            <div class="col-12">
+                <label for="electionDic" class="form-label">Election Description</label>
+                <textarea class="form-control" name="electionDic" id="electionDic" rows="3" required></textarea>
+            </div>
+        </form>
+    </div>
+</section>
+</body>
+</html>
